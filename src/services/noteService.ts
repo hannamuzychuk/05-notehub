@@ -3,13 +3,13 @@ import type { Note } from "../types/notes";
 
 export interface NotesResponse {
     notes: Note[];
-    total_pages: number;
+    totalPages: number;
 }
 
 const api = axios.create({
     baseURL: 'https://notehub-public.goit.study/api',
     headers: {
-        Authorization: `Bearer ${import.meta.VITE_NOTEHUB_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`,
     },
 });
 
@@ -23,4 +23,14 @@ export const fetchNotes = async (page: number, search: string): Promise<NotesRes
         }
     });
     return response.data;
-}
+};
+
+export const createNote = async (note: Omit<Note, 'id' | 'createdAt'>): Promise<Note> => {
+    const response: AxiosResponse<Note> = await api.post<Note>('/notes', note);
+    return response.data;
+};
+
+export const deleteNote = async (id: string): Promise<Note> => {
+    const response: AxiosResponse<Note> = await api.delete<Note>(`/notes/${id}`);
+    return response.data;
+};

@@ -3,8 +3,8 @@
 NoteHub is a React application for creating, searching, paginating, and managing personal notes.  
 The project was built with **Vite**, **TypeScript**, and follows modern best practices.
 
-🔗 **Live demo:** *(https://github.com/hannamuzychuk/05-notehub)*  
-🔗 **Repository:** *((https://github.com/hannamuzychuk/05-notehub))*
+🔗 **Live demo:** _(())_  
+🔗 **Repository:** _((https://github.com/hannamuzychuk/05-notehub))_
 
 ---
 
@@ -52,8 +52,8 @@ src/
 ├── main.tsx
 └── index.css
 
-
 Each component is placed in its own folder and contains:
+
 - a `.tsx` file with the React component
 - a `.module.css` file with styles
 
@@ -88,3 +88,4 @@ npm install
 Start the development server:
 
 npm run dev
+```
