@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchNotes, type NotesResponse } from "../../services/noteService";
 import css from "./App.module.css";
 import NoteList from "../NoteList/NoteList";
@@ -8,7 +8,7 @@ import Modal from "../Modal/Modal";
 import NoteForm from "../NoteForm/NoteForm";
 import Pagination from "../Pagination/Pagination";
 import { useDebouncedCallback } from "use-debounce";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 // import { ErrorMessage } from "formik";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
@@ -31,26 +31,21 @@ export default function App() {
     debouncedSearch(value);
     };
 
-  const { data, isLoading, isError, isSuccess } = useQuery<NotesResponse>({
+  const { data, isLoading, isError } = useQuery<NotesResponse>({
     queryKey: ["notes", page, search],
       queryFn: () => fetchNotes(page, search),
-      enabled: search !== '',
+      // enabled: search !== '',
      placeholderData: keepPreviousData,
   });
     
-    useEffect(() => {
-        if (isSuccess && data?.notes.length === 0 && search) {
-            toast.error('No notes found for you request.');  
-
-        }
-    }, [isSuccess, data?.notes.length, search])
+  
     
   return (
     <div className={css.app}>
           <header className={css.toolbar}>
               
               <SearchBox value={searchInput} onChange={handleSearchChange} />
-              <Toaster position='top-right' /> 
+              {/* <Toaster position='top-right' />  */}
               {isLoading && <Loader />}
               {isError && <ErrorMessage/>}
               
@@ -61,12 +56,16 @@ export default function App() {
               <button className={css.button} onClick={() => setIsOpen(true)}>
           Create note +
         </button>
-          </header>
-          
-      {isLoading && <strong>Loading notes...</strong>}
+      </header>
 
-          
-     {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
+      {data && (data.notes.length > 0 ? (
+        <NoteList notes={data.notes} />
+      ) : search ? (
+          <p>No notes found for '{search}'</p>    
+        ) : (
+          <p>Loading notes...</p>
+    ))}
+
       {isOpen && (
         <Modal onClose={()=> setIsOpen(false)}>
           <NoteForm onClose={()=> setIsOpen(false)} />
