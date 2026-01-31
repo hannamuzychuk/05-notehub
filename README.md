@@ -3,7 +3,7 @@
 NoteHub is a React application for creating, searching, paginating, and managing personal notes.  
 The project was built with **Vite**, **TypeScript**, and follows modern best practices.
 
-🔗 **Live demo:** _(())_  
+🔗 **Live demo:** _((https://05-notehub-f5j4misez-hannamuzychuks-projects.vercel.app/))_  
 🔗 **Repository:** _((https://github.com/hannamuzychuk/05-notehub))_
 
 ---

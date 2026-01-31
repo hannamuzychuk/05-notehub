@@ -1,8 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import css from './NoteForm.module.css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from "yup";
 import { createNote } from '../../services/noteService';
+import css from './NoteForm.module.css';
 
 interface NoteFormProps {
     onClose: () => void;
@@ -43,12 +43,13 @@ export default function NoteForm({ onClose }: NoteFormProps) {
         <div className={css.formGroup}>
           <label htmlFor="content">Content</label>
           <Field
+            as="textarea"
             id="content"
             name="content"
             rows={8}
             className={css.textarea}
           />
-          <ErrorMessage name="content" className={css.error} />
+          <ErrorMessage name="title" component="span" className={css.error} />
         </div>
 
         <div className={css.formGroup}>
@@ -60,7 +61,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             <option value="Meeting">Meeting</option>
             <option value="Shopping">Shopping</option>
           </Field>
-          <ErrorMessage name="tag" className={css.error} />
+          <ErrorMessage name="title" component="span" className={css.error} />
         </div>
 
         <div className={css.actions}>
