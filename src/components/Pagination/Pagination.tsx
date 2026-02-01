@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 
 interface PaginationProps {
     pageCount: number,
-    onPageChange: (pageCount: number) => void,
+    onPageChange: (page: number) => void,
 }
 
 export default function Pagination({ pageCount, onPageChange }: PaginationProps) {

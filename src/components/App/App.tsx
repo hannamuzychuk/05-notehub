@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchNotes, type NotesResponse } from "../../services/noteService";
+import { fetchNotes, type FetchNotesResponse } from "../../services/noteService";
 import css from "./App.module.css";
 import NoteList from "../NoteList/NoteList";
 import SearchBox from "../SearchBox/SearchBox";
@@ -31,7 +31,7 @@ export default function App() {
     debouncedSearch(value);
     };
 
-  const { data, isLoading, isError } = useQuery<NotesResponse>({
+  const { data, isLoading, isError } = useQuery<FetchNotesResponse>({
     queryKey: ["notes", page, search],
       queryFn: () => fetchNotes(page, search),
       // enabled: search !== '',

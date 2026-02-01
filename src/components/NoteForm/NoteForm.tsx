@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from "yup";
+import type { NoteTag } from '../../types/note';
 import { createNote } from '../../services/noteService';
 import css from './NoteForm.module.css';
 
@@ -8,9 +9,15 @@ interface NoteFormProps {
     onClose: () => void;
 }
 
+interface NoteFormValues {
+  title: string;
+  content: string;
+  tag: NoteTag;
+}
+
 const Schema = Yup.object({
     title: Yup.string().min(3).max(50).required('Title is Required'),
-    content: Yup.string().max(500).required('Content is required'),
+    content: Yup.string().max(500),
     tag: Yup.string().oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping']).required('Tag is required'),
 
 });
@@ -28,10 +35,10 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     
     
   return (
-    <Formik
+    <Formik<NoteFormValues>
       initialValues={{ title: '', content: '', tag: 'Todo' }}
       validationSchema={Schema}
-      onSubmit={values => mutation.mutate(values)}
+      onSubmit={(values) => mutation.mutate(values)}
     >
       <Form className={css.form}>
         <div className={css.formGroup}>
@@ -49,7 +56,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             rows={8}
             className={css.textarea}
           />
-          <ErrorMessage name="title" component="span" className={css.error} />
+          <ErrorMessage name="content" component="span" className={css.error} />
         </div>
 
         <div className={css.formGroup}>
@@ -61,7 +68,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             <option value="Meeting">Meeting</option>
             <option value="Shopping">Shopping</option>
           </Field>
-          <ErrorMessage name="title" component="span" className={css.error} />
+          <ErrorMessage name="tag" component="span" className={css.error} />
         </div>
 
         <div className={css.actions}>

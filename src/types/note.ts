@@ -1,6 +1,6 @@
 export interface Note {
     id: string,
-    tag: string,
+    tag: NoteTag,
     title: string,
     content: string,
     createdAt: string, 
