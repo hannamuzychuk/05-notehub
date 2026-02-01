@@ -50,7 +50,8 @@ export default function App() {
               {isError && <ErrorMessage/>}
               
           {data && data.totalPages > 1 && (
-                  <Pagination pageCount={data.totalPages} onPageChange={setPage} />
+          <Pagination pageCount={data.totalPages}
+           currentPage={page} onPageChange={setPage} />
             )}
               
               <button className={css.button} onClick={() => setIsOpen(true)}>
